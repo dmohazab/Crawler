@@ -1,14 +1,12 @@
 import os
 
-
-# Each website is a separate project (folder)
+#Each web creates a new directory
 def create_project_dir(directory):
     if not os.path.exists(directory):
         print('Creating directory ' + directory)
         os.makedirs(directory)
 
-
-# Create queue and crawled files (if not created)
+#Creating files to store data
 def create_data_files(project_name, base_url):
     queue = os.path.join(project_name , 'queue.txt')
     crawled = os.path.join(project_name,"crawled.txt")
@@ -17,25 +15,21 @@ def create_data_files(project_name, base_url):
     if not os.path.isfile(crawled):
         write_file(crawled, '')
 
-
-# Create a new file
+#New files
 def write_file(path, data):
     with open(path, 'w') as f:
         f.write(data)
 
-
-# Add data onto an existing file
+#Adding data onto an existing file
 def append_to_file(path, data):
     with open(path, 'a') as file:
         file.write(data + '\n')
 
-
-# Delete the contents of a file
+#Delete the contents of a file (for when something is moved in between)
 def delete_file_contents(path):
     open(path, 'w').close()
 
-
-# Read a file and convert each line to set items
+#For file to set convertions
 def file_to_set(file_name):
     results = set()
     with open(file_name, 'rt') as f:
@@ -43,8 +37,7 @@ def file_to_set(file_name):
             results.add(line.replace('\n', ''))
     return results
 
-
-# Iterate through a set, each item will be a line in a file
+#Adding set items to a file to save data
 def set_to_file(links, file_name):
     with open(file_name,"w") as f:
         for l in sorted(links):

@@ -30,7 +30,7 @@ class Spider:
         Spider.queue = file_to_set(Spider.queue_file)
         Spider.crawled = file_to_set(Spider.crawled_file)
 
-    # Updates user display, fills queue and updates files
+    #User display to show the program is actually running
     @staticmethod
     def crawl_page(thread_name, page_url):
         if page_url not in Spider.crawled:
@@ -41,7 +41,7 @@ class Spider:
             Spider.crawled.add(page_url)
             Spider.update_files()
 
-    # Converts raw response data into readable information and checks for proper html formatting
+    #Converts into readable words instead of binary, also gathers links
     @staticmethod
     def gather_links(page_url):
         html_string = ''
@@ -57,7 +57,7 @@ class Spider:
             return set()
         return finder.page_links()
 
-    # Saves queue data to project files
+    #Queue to project file saving
     @staticmethod
     def add_links_to_queue(links):
         for url in links:
@@ -71,4 +71,6 @@ class Spider:
     def update_files():
         set_to_file(Spider.queue, Spider.queue_file)
         set_to_file(Spider.crawled, Spider.crawled_file)
-#once the spider gathers multiple links, the program becomes multithreaded
+
+#once the spider gathers multiple links, the program becomes multithreaded - the first spider must gather initial links
+#for the new spiders to start crawling
